@@ -22,7 +22,6 @@ fn main() {
     let mut renderer = GameRenderer::new(&stdout);
 
     game.prepare_level();
-    renderer.prepare();
 
     let mut step_interval = Duration::from_millis(150);
     let mut last_update = Instant::now();
@@ -63,15 +62,15 @@ pub struct GameRenderer<'a> {
 
 impl<'a> GameRenderer<'a> {
     pub fn new(stdout: &'a Stdout) -> GameRenderer<'a> {
-        GameRenderer {
+        let mut render = GameRenderer {
             output: String::new(),
             stdout,
-        }
-    }
+        };
 
-    pub fn prepare(&mut self) {
-        execute!(self.stdout, EnterAlternateScreen, Hide).unwrap();
+        execute!(render.stdout, EnterAlternateScreen, Hide).unwrap();
         terminal::enable_raw_mode().unwrap();
+
+        render
     }
 
     pub fn render(&mut self, game: &Game) {
