@@ -27,15 +27,15 @@ fn main() {
     let mut last_update = Instant::now();
 
     loop {
-        if event::poll(Duration::from_millis(50)).unwrap() {
+        if event::poll(Duration::from_millis(25)).unwrap() {
             if let Event::Key(key_event) = event::read().unwrap() {
                 match key_event.code {
                     KeyCode::Up => direction = Direction::Up,
                     KeyCode::Down => direction = Direction::Down,
                     KeyCode::Left => direction = Direction::Left,
                     KeyCode::Right => direction = Direction::Right,
-                    KeyCode::Char('+') => if step_interval > Duration::from_millis(50) { step_interval -= Duration::from_millis(50) },
-                    KeyCode::Char('-') => step_interval += Duration::from_millis(50),
+                    KeyCode::Char('+') => if step_interval > Duration::from_millis(25) { step_interval -= Duration::from_millis(25) },
+                    KeyCode::Char('-') => step_interval += Duration::from_millis(25),
                     KeyCode::Char('q') => break,
                     _ => {}
                 }

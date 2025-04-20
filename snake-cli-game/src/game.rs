@@ -149,8 +149,8 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn new(width: u16, height: u16) -> Box<Game> {
-        Box::new(Game {
+    pub fn new(width: u16, height: u16) -> Game {
+        Game {
             field: Field::new(width, height),
             snake: Snake {
                 head: Location::zero(),
@@ -158,7 +158,7 @@ impl Game {
             },
             score: 0,
             rnd: rand::rng(),
-        })
+        }
     }
 
     pub fn field(&self) -> &Field {
