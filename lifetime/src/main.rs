@@ -13,11 +13,11 @@ fn main() {
         part: first_sentence,
     };
     println!("{}", i.part);
-    
+
     // Concept 3
     let string3 = String::from("Hello World");
     println!("{}", first_word(string3.as_str()));
-    
+
     // Concept 4
     let s: &'static str = "I have a static lifetime.";
     println!("{}", s);
