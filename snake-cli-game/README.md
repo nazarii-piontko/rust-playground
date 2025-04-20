@@ -18,3 +18,7 @@ Original project: [https://github.com/nazarii-piontko/arduino-snake](https://git
 - **☺**: Snake body
 - **█**: Walls
 - **♥**: Food
+
+## Demo
+
+![demo](demo.gif "Demo")
