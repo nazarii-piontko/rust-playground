@@ -1,0 +1,570 @@
+// WARNING: This output format is intended for human consumers only
+// and is subject to change without notice. Knock yourself out.
+// HINT: See also -Z dump-mir for MIR at specific points during compilation.
+fn <impl at src/lib.rs:13:1: 13:16>::new(_1: usize) -> ThreadPool {
+    debug size => _1;
+    let mut _0: ThreadPool;
+    let mut _2: bool;
+    let mut _3: !;
+    let _4: std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>;
+    let _5: std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>;
+    let mut _6: (std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>, std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>);
+    let mut _8: std::sync::Mutex<std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let mut _9: std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>;
+    let mut _11: std::ops::Range<usize>;
+    let mut _12: std::ops::Range<usize>;
+    let mut _14: std::option::Option<usize>;
+    let mut _15: &mut std::ops::Range<usize>;
+    let mut _16: isize;
+    let _18: ();
+    let mut _19: &mut std::vec::Vec<Worker>;
+    let mut _20: Worker;
+    let mut _21: std::sync::Arc<std::sync::Mutex<std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>>;
+    let _22: &std::sync::Arc<std::sync::Mutex<std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>>;
+    let mut _23: std::vec::Vec<Worker>;
+    let mut _24: std::option::Option<std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let mut _25: std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>;
+    let mut _26: bool;
+    let mut _27: bool;
+    scope 1 {
+        debug sender => _4;
+        debug receiver => _5;
+        let _7: std::sync::Arc<std::sync::Mutex<std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>>;
+        scope 2 {
+            debug receiver => _7;
+            let mut _10: std::vec::Vec<Worker>;
+            scope 3 {
+                debug workers => _10;
+                let mut _13: std::ops::Range<usize>;
+                scope 4 {
+                    debug iter => _13;
+                    let _17: usize;
+                    scope 5 {
+                        debug id => _17;
+                    }
+                }
+            }
+        }
+    }
+
+    bb0: {
+        _27 = const false;
+        _26 = const false;
+        _2 = Gt(copy _1, const 0_usize);
+        switchInt(move _2) -> [0: bb2, otherwise: bb1];
+    }
+
+    bb1: {
+        _6 = std::sync::mpsc::channel::<Box<dyn FnOnce() + Send>>() -> [return: bb3, unwind continue];
+    }
+
+    bb2: {
+        _3 = core::panicking::panic(const "assertion failed: size > 0") -> unwind continue;
+    }
+
+    bb3: {
+        _27 = const true;
+        _4 = move (_6.0: std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>);
+        _26 = const true;
+        _5 = move (_6.1: std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>);
+        _26 = const false;
+        _9 = move _5;
+        _8 = Mutex::<std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>>::new(move _9) -> [return: bb4, unwind: bb21];
+    }
+
+    bb4: {
+        _7 = Arc::<Mutex<std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>>>::new(move _8) -> [return: bb5, unwind: bb21];
+    }
+
+    bb5: {
+        _10 = Vec::<Worker>::with_capacity(copy _1) -> [return: bb6, unwind: bb17];
+    }
+
+    bb6: {
+        _12 = std::ops::Range::<usize> { start: const 0_usize, end: copy _1 };
+        _11 = <std::ops::Range<usize> as IntoIterator>::into_iter(move _12) -> [return: bb7, unwind: bb16];
+    }
+
+    bb7: {
+        _13 = move _11;
+        goto -> bb8;
+    }
+
+    bb8: {
+        _15 = &mut _13;
+        _14 = <std::ops::Range<usize> as Iterator>::next(copy _15) -> [return: bb9, unwind: bb16];
+    }
+
+    bb9: {
+        _16 = discriminant(_14);
+        switchInt(move _16) -> [0: bb12, 1: bb11, otherwise: bb10];
+    }
+
+    bb10: {
+        unreachable;
+    }
+
+    bb11: {
+        _17 = copy ((_14 as Some).0: usize);
+        _19 = &mut _10;
+        _22 = &_7;
+        _21 = <Arc<Mutex<std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>>> as Clone>::clone(copy _22) -> [return: bb13, unwind: bb16];
+    }
+
+    bb12: {
+        _23 = move _10;
+        _27 = const false;
+        _25 = move _4;
+        _24 = Option::<std::sync::mpsc::Sender<Box<dyn FnOnce() + Send>>>::Some(move _25);
+        _0 = ThreadPool { workers: move _23, sender: move _24 };
+        drop(_7) -> [return: bb15, unwind: bb21];
+    }
+
+    bb13: {
+        _20 = Worker::new(copy _17, move _21) -> [return: bb14, unwind: bb16];
+    }
+
+    bb14: {
+        _18 = Vec::<Worker>::push(move _19, move _20) -> [return: bb23, unwind: bb16];
+    }
+
+    bb15: {
+        _26 = const false;
+        _27 = const false;
+        return;
+    }
+
+    bb16 (cleanup): {
+        drop(_10) -> [return: bb17, unwind terminate(cleanup)];
+    }
+
+    bb17 (cleanup): {
+        drop(_7) -> [return: bb21, unwind terminate(cleanup)];
+    }
+
+    bb18 (cleanup): {
+        switchInt(copy _27) -> [0: bb19, otherwise: bb22];
+    }
+
+    bb19 (cleanup): {
+        resume;
+    }
+
+    bb20 (cleanup): {
+        drop(_5) -> [return: bb18, unwind terminate(cleanup)];
+    }
+
+    bb21 (cleanup): {
+        switchInt(copy _26) -> [0: bb18, otherwise: bb20];
+    }
+
+    bb22 (cleanup): {
+        drop(_4) -> [return: bb19, unwind terminate(cleanup)];
+    }
+
+    bb23: {
+        goto -> bb8;
+    }
+}
+
+fn <impl at src/lib.rs:13:1: 13:16>::execute(_1: &ThreadPool, _2: F) -> () {
+    debug self => _1;
+    debug f => _2;
+    let mut _0: ();
+    let _3: std::boxed::Box<F>;
+    let _4: ();
+    let mut _5: std::result::Result<(), std::sync::mpmc::SendError<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let _6: &std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>;
+    let mut _7: std::option::Option<&std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let mut _8: &std::option::Option<std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let mut _9: std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>;
+    let mut _10: std::boxed::Box<F>;
+    let mut _11: bool;
+    scope 1 {
+        debug job => _3;
+    }
+
+    bb0: {
+        _11 = const false;
+        _3 = Box::<F>::new(move _2) -> [return: bb1, unwind continue];
+    }
+
+    bb1: {
+        _11 = const true;
+        _8 = &((*_1).1: std::option::Option<std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>);
+        _7 = Option::<std::sync::mpsc::Sender<Box<dyn FnOnce() + Send>>>::as_ref(move _8) -> [return: bb2, unwind: bb8];
+    }
+
+    bb2: {
+        _6 = Option::<&std::sync::mpsc::Sender<Box<dyn FnOnce() + Send>>>::unwrap(move _7) -> [return: bb3, unwind: bb8];
+    }
+
+    bb3: {
+        _11 = const false;
+        _10 = move _3;
+        _9 = move _10 as std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send> (PointerCoercion(Unsize, Implicit));
+        _5 = std::sync::mpsc::Sender::<Box<dyn FnOnce() + Send>>::send(copy _6, move _9) -> [return: bb4, unwind: bb8];
+    }
+
+    bb4: {
+        _4 = Result::<(), SendError<Box<dyn FnOnce() + Send>>>::unwrap(move _5) -> [return: bb5, unwind: bb8];
+    }
+
+    bb5: {
+        _11 = const false;
+        return;
+    }
+
+    bb6 (cleanup): {
+        resume;
+    }
+
+    bb7 (cleanup): {
+        drop(_3) -> [return: bb6, unwind terminate(cleanup)];
+    }
+
+    bb8 (cleanup): {
+        switchInt(copy _11) -> [0: bb6, otherwise: bb7];
+    }
+}
+
+fn <impl at src/lib.rs:50:1: 50:25>::drop(_1: &mut ThreadPool) -> () {
+    debug self => _1;
+    let mut _0: ();
+    let _2: ();
+    let mut _3: std::option::Option<std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let mut _4: &mut std::option::Option<std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let mut _5: std::slice::IterMut<'_, Worker>;
+    let mut _6: &mut std::vec::Vec<Worker>;
+    let mut _7: std::slice::IterMut<'_, Worker>;
+    let mut _8: std::option::Option<&mut Worker>;
+    let mut _9: &mut std::slice::IterMut<'_, Worker>;
+    let mut _10: isize;
+    let _12: ();
+    let mut _13: std::fmt::Arguments<'_>;
+    let _14: &[&str; 2];
+    let _15: &[core::fmt::rt::Argument<'_>; 1];
+    let _16: [core::fmt::rt::Argument<'_>; 1];
+    let mut _17: core::fmt::rt::Argument<'_>;
+    let _18: &usize;
+    let mut _19: std::option::Option<std::thread::JoinHandle<()>>;
+    let mut _20: &mut std::option::Option<std::thread::JoinHandle<()>>;
+    let mut _21: isize;
+    let _23: ();
+    let mut _24: std::result::Result<(), std::boxed::Box<dyn std::any::Any + std::marker::Send>>;
+    scope 1 {
+        debug iter => _7;
+        let _11: &mut Worker;
+        scope 2 {
+            debug worker => _11;
+            scope 3 {
+                debug thread => _22;
+                let _22: std::thread::JoinHandle<()>;
+            }
+        }
+    }
+
+    bb0: {
+        _4 = &mut ((*_1).1: std::option::Option<std::sync::mpsc::Sender<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>);
+        _3 = Option::<std::sync::mpsc::Sender<Box<dyn FnOnce() + Send>>>::take(move _4) -> [return: bb1, unwind continue];
+    }
+
+    bb1: {
+        _2 = std::mem::drop::<Option<std::sync::mpsc::Sender<Box<dyn FnOnce() + Send>>>>(move _3) -> [return: bb2, unwind continue];
+    }
+
+    bb2: {
+        _6 = &mut ((*_1).0: std::vec::Vec<Worker>);
+        _5 = <&mut Vec<Worker> as IntoIterator>::into_iter(move _6) -> [return: bb3, unwind continue];
+    }
+
+    bb3: {
+        _7 = move _5;
+        goto -> bb4;
+    }
+
+    bb4: {
+        _9 = &mut _7;
+        _8 = <std::slice::IterMut<'_, Worker> as Iterator>::next(copy _9) -> [return: bb5, unwind continue];
+    }
+
+    bb5: {
+        _10 = discriminant(_8);
+        switchInt(move _10) -> [0: bb8, 1: bb7, otherwise: bb6];
+    }
+
+    bb6: {
+        unreachable;
+    }
+
+    bb7: {
+        _11 = move ((_8 as Some).0: &mut Worker);
+        _14 = const <ThreadPool as std::ops::Drop>::drop::promoted[0];
+        _18 = &((*_11).0: usize);
+        _17 = core::fmt::rt::Argument::<'_>::new_display::<usize>(copy _18) -> [return: bb9, unwind continue];
+    }
+
+    bb8: {
+        return;
+    }
+
+    bb9: {
+        _16 = [move _17];
+        _15 = &_16;
+        _13 = Arguments::<'_>::new_v1::<2, 1>(copy _14, copy _15) -> [return: bb10, unwind continue];
+    }
+
+    bb10: {
+        _12 = _print(move _13) -> [return: bb11, unwind continue];
+    }
+
+    bb11: {
+        _20 = &mut ((*_11).1: std::option::Option<std::thread::JoinHandle<()>>);
+        _19 = Option::<JoinHandle<()>>::take(move _20) -> [return: bb12, unwind continue];
+    }
+
+    bb12: {
+        _21 = discriminant(_19);
+        switchInt(move _21) -> [1: bb13, 0: bb15, otherwise: bb6];
+    }
+
+    bb13: {
+        _22 = move ((_19 as Some).0: std::thread::JoinHandle<()>);
+        _24 = JoinHandle::<()>::join(move _22) -> [return: bb14, unwind continue];
+    }
+
+    bb14: {
+        _23 = Result::<(), Box<dyn Any + Send>>::unwrap(move _24) -> [return: bb4, unwind continue];
+    }
+
+    bb15: {
+        drop(_19) -> [return: bb4, unwind continue];
+    }
+}
+
+const <impl at src/lib.rs:50:1: 50:25>::drop::promoted[0]: &[&str; 2] = {
+    let mut _0: &[&str; 2];
+    let mut _1: [&str; 2];
+
+    bb0: {
+        _1 = [const "Shutting down worker ", const "\n"];
+        _0 = &_1;
+        return;
+    }
+}
+
+fn <impl at src/lib.rs:69:1: 69:12>::new(_1: usize, _2: Arc<Mutex<std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>>>) -> Worker {
+    debug id => _1;
+    debug receiver => _2;
+    let mut _0: Worker;
+    let _3: std::thread::JoinHandle<()>;
+    let mut _4: {closure@src/lib.rs:71:36: 71:43};
+    let mut _5: std::option::Option<std::thread::JoinHandle<()>>;
+    scope 1 {
+        debug thread => _3;
+    }
+
+    bb0: {
+        _4 = {closure@src/lib.rs:71:36: 71:43} { receiver: move _2, id: copy _1 };
+        _3 = spawn::<{closure@src/lib.rs:71:36: 71:43}, ()>(move _4) -> [return: bb1, unwind continue];
+    }
+
+    bb1: {
+        _5 = Option::<JoinHandle<()>>::Some(move _3);
+        _0 = Worker { id: copy _1, thread: move _5 };
+        return;
+    }
+}
+
+fn <impl at src/lib.rs:69:1: 69:12>::new::{closure#0}(_1: {closure@src/lib.rs:71:36: 71:43}) -> () {
+    debug receiver => (_1.0: std::sync::Arc<std::sync::Mutex<std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>>);
+    debug id => (_1.1: usize);
+    let mut _0: ();
+    let _2: std::result::Result<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>, std::sync::mpmc::RecvError>;
+    let _3: &std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>;
+    let mut _4: &std::sync::MutexGuard<'_, std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let _5: std::sync::MutexGuard<'_, std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let mut _6: std::result::Result<std::sync::MutexGuard<'_, std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>, std::sync::PoisonError<std::sync::MutexGuard<'_, std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>>>;
+    let _7: &std::sync::Mutex<std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>;
+    let mut _8: &std::sync::Arc<std::sync::Mutex<std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>>;
+    let mut _9: isize;
+    let _11: ();
+    let mut _12: std::fmt::Arguments<'_>;
+    let _13: &[&str; 2];
+    let _14: &[core::fmt::rt::Argument<'_>; 1];
+    let _15: [core::fmt::rt::Argument<'_>; 1];
+    let mut _16: core::fmt::rt::Argument<'_>;
+    let _17: &usize;
+    let _18: ();
+    let mut _19: std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>;
+    let _20: ();
+    let mut _21: std::fmt::Arguments<'_>;
+    let _22: &[&str; 2];
+    let _23: &[core::fmt::rt::Argument<'_>; 1];
+    let _24: [core::fmt::rt::Argument<'_>; 1];
+    let mut _25: core::fmt::rt::Argument<'_>;
+    let _26: &usize;
+    let mut _27: bool;
+    let mut _28: bool;
+    let mut _29: isize;
+    scope 1 {
+        debug message => _2;
+        let _10: std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>;
+        scope 2 {
+            debug job => _10;
+        }
+    }
+
+    bb0: {
+        _27 = const false;
+        _28 = const false;
+        goto -> bb1;
+    }
+
+    bb1: {
+        _8 = &(_1.0: std::sync::Arc<std::sync::Mutex<std::sync::mpsc::Receiver<std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>>>>);
+        _7 = <Arc<Mutex<std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>>> as Deref>::deref(move _8) -> [return: bb2, unwind: bb20];
+    }
+
+    bb2: {
+        _6 = Mutex::<std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>>::lock(copy _7) -> [return: bb3, unwind: bb20];
+    }
+
+    bb3: {
+        _5 = Result::<MutexGuard<'_, std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>>, PoisonError<MutexGuard<'_, std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>>>>::unwrap(move _6) -> [return: bb4, unwind: bb20];
+    }
+
+    bb4: {
+        _4 = &_5;
+        _3 = <MutexGuard<'_, std::sync::mpsc::Receiver<Box<dyn FnOnce() + Send>>> as Deref>::deref(move _4) -> [return: bb5, unwind: bb19];
+    }
+
+    bb5: {
+        _2 = std::sync::mpsc::Receiver::<Box<dyn FnOnce() + Send>>::recv(copy _3) -> [return: bb6, unwind: bb19];
+    }
+
+    bb6: {
+        _28 = const true;
+        drop(_5) -> [return: bb7, unwind: bb26];
+    }
+
+    bb7: {
+        _9 = discriminant(_2);
+        switchInt(move _9) -> [0: bb10, 1: bb9, otherwise: bb8];
+    }
+
+    bb8: {
+        unreachable;
+    }
+
+    bb9: {
+        _22 = const Worker::new::{closure#0}::promoted[0];
+        _26 = &(_1.1: usize);
+        _25 = core::fmt::rt::Argument::<'_>::new_display::<usize>(copy _26) -> [return: bb15, unwind: bb26];
+    }
+
+    bb10: {
+        _28 = const false;
+        _27 = const true;
+        _10 = move ((_2 as Ok).0: std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>);
+        _13 = const Worker::new::{closure#0}::promoted[1];
+        _17 = &(_1.1: usize);
+        _16 = core::fmt::rt::Argument::<'_>::new_display::<usize>(copy _17) -> [return: bb11, unwind: bb23];
+    }
+
+    bb11: {
+        _15 = [move _16];
+        _14 = &_15;
+        _12 = Arguments::<'_>::new_v1::<2, 1>(copy _13, copy _14) -> [return: bb12, unwind: bb23];
+    }
+
+    bb12: {
+        _11 = _print(move _12) -> [return: bb13, unwind: bb23];
+    }
+
+    bb13: {
+        _27 = const false;
+        _19 = move _10;
+        _18 = <Box<dyn FnOnce() + Send> as FnOnce<()>>::call_once(move _19, const ()) -> [return: bb14, unwind: bb23];
+    }
+
+    bb14: {
+        _27 = const false;
+        _28 = const false;
+        goto -> bb1;
+    }
+
+    bb15: {
+        _24 = [move _25];
+        _23 = &_24;
+        _21 = Arguments::<'_>::new_v1::<2, 1>(copy _22, copy _23) -> [return: bb16, unwind: bb26];
+    }
+
+    bb16: {
+        _20 = _print(move _21) -> [return: bb17, unwind: bb26];
+    }
+
+    bb17: {
+        _28 = const false;
+        drop(_1) -> [return: bb18, unwind continue];
+    }
+
+    bb18: {
+        return;
+    }
+
+    bb19 (cleanup): {
+        drop(_5) -> [return: bb20, unwind terminate(cleanup)];
+    }
+
+    bb20 (cleanup): {
+        drop(_1) -> [return: bb21, unwind terminate(cleanup)];
+    }
+
+    bb21 (cleanup): {
+        resume;
+    }
+
+    bb22 (cleanup): {
+        drop(_10) -> [return: bb26, unwind terminate(cleanup)];
+    }
+
+    bb23 (cleanup): {
+        switchInt(copy _27) -> [0: bb26, otherwise: bb22];
+    }
+
+    bb24 (cleanup): {
+        switchInt(copy _28) -> [0: bb20, otherwise: bb25];
+    }
+
+    bb25 (cleanup): {
+        drop(((_2 as Ok).0: std::boxed::Box<dyn std::ops::FnOnce() + std::marker::Send>)) -> [return: bb20, unwind terminate(cleanup)];
+    }
+
+    bb26 (cleanup): {
+        _29 = discriminant(_2);
+        switchInt(move _29) -> [0: bb24, otherwise: bb20];
+    }
+}
+
+const <impl at src/lib.rs:69:1: 69:12>::new::{closure#0}::promoted[0]: &[&str; 2] = {
+    let mut _0: &[&str; 2];
+    let mut _1: [&str; 2];
+
+    bb0: {
+        _1 = [const "Worker ", const " disconnected; shutting down.\n"];
+        _0 = &_1;
+        return;
+    }
+}
+
+const <impl at src/lib.rs:69:1: 69:12>::new::{closure#0}::promoted[1]: &[&str; 2] = {
+    let mut _0: &[&str; 2];
+    let mut _1: [&str; 2];
+
+    bb0: {
+        _1 = [const "Worker ", const " got a job; executing.\n"];
+        _0 = &_1;
+        return;
+    }
+}

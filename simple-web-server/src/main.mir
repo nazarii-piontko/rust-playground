@@ -1,0 +1,512 @@
+// WARNING: This output format is intended for human consumers only
+// and is subject to change without notice. Knock yourself out.
+// HINT: See also -Z dump-mir for MIR at specific points during compilation.
+fn main() -> () {
+    let mut _0: ();
+    let _1: ();
+    let mut _2: std::fmt::Arguments<'_>;
+    let _3: &[&str; 2];
+    let _4: &[core::fmt::rt::Argument<'_>; 1];
+    let _5: [core::fmt::rt::Argument<'_>; 1];
+    let mut _6: core::fmt::rt::Argument<'_>;
+    let _7: &std::path::Display<'_>;
+    let _8: std::path::Display<'_>;
+    let _9: &std::path::Path;
+    let mut _10: &std::path::PathBuf;
+    let _11: std::path::PathBuf;
+    let mut _12: std::result::Result<std::path::PathBuf, std::io::Error>;
+    let _13: std::net::TcpListener;
+    let mut _14: std::result::Result<std::net::TcpListener, std::io::Error>;
+    let _15: ();
+    let mut _16: std::fmt::Arguments<'_>;
+    let _17: &[&str; 2];
+    let _18: &[core::fmt::rt::Argument<'_>; 1];
+    let _19: [core::fmt::rt::Argument<'_>; 1];
+    let mut _20: core::fmt::rt::Argument<'_>;
+    let _21: &std::net::SocketAddr;
+    let _22: std::net::SocketAddr;
+    let mut _23: std::result::Result<std::net::SocketAddr, std::io::Error>;
+    let mut _24: &std::net::TcpListener;
+    let mut _26: std::net::Incoming<'_>;
+    let mut _27: std::net::Incoming<'_>;
+    let mut _28: &std::net::TcpListener;
+    let mut _30: std::option::Option<std::result::Result<std::net::TcpStream, std::io::Error>>;
+    let mut _31: &mut std::net::Incoming<'_>;
+    let mut _32: isize;
+    let _35: ();
+    let mut _36: &simple_web_server::ThreadPool;
+    let mut _37: {closure@src/main.rs:22:22: 22:24};
+    let _38: ();
+    let mut _39: std::fmt::Arguments<'_>;
+    let _40: &[&str; 1];
+    scope 1 {
+        debug listener => _13;
+        let _25: simple_web_server::ThreadPool;
+        scope 2 {
+            debug pool => _25;
+            let mut _29: std::net::Incoming<'_>;
+            scope 3 {
+                debug iter => _29;
+                let _33: std::result::Result<std::net::TcpStream, std::io::Error>;
+                scope 4 {
+                    debug stream => _33;
+                    let _34: std::net::TcpStream;
+                    scope 5 {
+                        debug stream => _34;
+                    }
+                }
+            }
+        }
+    }
+
+    bb0: {
+        _3 = const main::promoted[2];
+        _12 = current_dir() -> [return: bb1, unwind continue];
+    }
+
+    bb1: {
+        _11 = Result::<PathBuf, std::io::Error>::unwrap(move _12) -> [return: bb2, unwind continue];
+    }
+
+    bb2: {
+        _10 = &_11;
+        _9 = <PathBuf as Deref>::deref(move _10) -> [return: bb3, unwind: bb31];
+    }
+
+    bb3: {
+        _8 = Path::display(copy _9) -> [return: bb4, unwind: bb31];
+    }
+
+    bb4: {
+        _7 = &_8;
+        _6 = core::fmt::rt::Argument::<'_>::new_display::<std::path::Display<'_>>(copy _7) -> [return: bb5, unwind: bb31];
+    }
+
+    bb5: {
+        _5 = [move _6];
+        _4 = &_5;
+        _2 = Arguments::<'_>::new_v1::<2, 1>(copy _3, copy _4) -> [return: bb6, unwind: bb31];
+    }
+
+    bb6: {
+        _1 = _print(move _2) -> [return: bb7, unwind: bb31];
+    }
+
+    bb7: {
+        drop(_11) -> [return: bb8, unwind continue];
+    }
+
+    bb8: {
+        _14 = TcpListener::bind::<&str>(const "127.0.0.1:7878") -> [return: bb9, unwind continue];
+    }
+
+    bb9: {
+        _13 = Result::<TcpListener, std::io::Error>::unwrap(move _14) -> [return: bb10, unwind continue];
+    }
+
+    bb10: {
+        _17 = const main::promoted[1];
+        _24 = &_13;
+        _23 = TcpListener::local_addr(move _24) -> [return: bb11, unwind: bb30];
+    }
+
+    bb11: {
+        _22 = Result::<std::net::SocketAddr, std::io::Error>::unwrap(move _23) -> [return: bb12, unwind: bb30];
+    }
+
+    bb12: {
+        _21 = &_22;
+        _20 = core::fmt::rt::Argument::<'_>::new_display::<std::net::SocketAddr>(copy _21) -> [return: bb13, unwind: bb30];
+    }
+
+    bb13: {
+        _19 = [move _20];
+        _18 = &_19;
+        _16 = Arguments::<'_>::new_v1::<2, 1>(copy _17, copy _18) -> [return: bb14, unwind: bb30];
+    }
+
+    bb14: {
+        _15 = _print(move _16) -> [return: bb15, unwind: bb30];
+    }
+
+    bb15: {
+        _25 = ThreadPool::new(const 4_usize) -> [return: bb16, unwind: bb30];
+    }
+
+    bb16: {
+        _28 = &_13;
+        _27 = TcpListener::incoming(move _28) -> [return: bb17, unwind: bb29];
+    }
+
+    bb17: {
+        _26 = <std::net::Incoming<'_> as IntoIterator>::into_iter(move _27) -> [return: bb18, unwind: bb29];
+    }
+
+    bb18: {
+        _29 = move _26;
+        goto -> bb19;
+    }
+
+    bb19: {
+        _31 = &mut _29;
+        _30 = <std::net::Incoming<'_> as Iterator>::next(copy _31) -> [return: bb20, unwind: bb29];
+    }
+
+    bb20: {
+        _32 = discriminant(_30);
+        switchInt(move _32) -> [0: bb23, 1: bb22, otherwise: bb21];
+    }
+
+    bb21: {
+        unreachable;
+    }
+
+    bb22: {
+        _33 = move ((_30 as Some).0: std::result::Result<std::net::TcpStream, std::io::Error>);
+        _34 = Result::<TcpStream, std::io::Error>::unwrap(move _33) -> [return: bb24, unwind: bb29];
+    }
+
+    bb23: {
+        _40 = const main::promoted[0];
+        _39 = Arguments::<'_>::new_const::<1>(copy _40) -> [return: bb25, unwind: bb29];
+    }
+
+    bb24: {
+        _36 = &_25;
+        _37 = {closure@src/main.rs:22:22: 22:24} { stream: move _34 };
+        _35 = ThreadPool::execute::<{closure@src/main.rs:22:22: 22:24}>(move _36, move _37) -> [return: bb33, unwind: bb29];
+    }
+
+    bb25: {
+        _38 = _print(move _39) -> [return: bb26, unwind: bb29];
+    }
+
+    bb26: {
+        drop(_25) -> [return: bb27, unwind: bb30];
+    }
+
+    bb27: {
+        drop(_13) -> [return: bb28, unwind continue];
+    }
+
+    bb28: {
+        return;
+    }
+
+    bb29 (cleanup): {
+        drop(_25) -> [return: bb30, unwind terminate(cleanup)];
+    }
+
+    bb30 (cleanup): {
+        drop(_13) -> [return: bb32, unwind terminate(cleanup)];
+    }
+
+    bb31 (cleanup): {
+        drop(_11) -> [return: bb32, unwind terminate(cleanup)];
+    }
+
+    bb32 (cleanup): {
+        resume;
+    }
+
+    bb33: {
+        goto -> bb19;
+    }
+}
+
+const main::promoted[0]: &[&str; 1] = {
+    let mut _0: &[&str; 1];
+    let mut _1: [&str; 1];
+
+    bb0: {
+        _1 = [const "Shutting down.\n"];
+        _0 = &_1;
+        return;
+    }
+}
+
+const main::promoted[1]: &[&str; 2] = {
+    let mut _0: &[&str; 2];
+    let mut _1: [&str; 2];
+
+    bb0: {
+        _1 = [const "Listening on http://", const "\n"];
+        _0 = &_1;
+        return;
+    }
+}
+
+const main::promoted[2]: &[&str; 2] = {
+    let mut _0: &[&str; 2];
+    let mut _1: [&str; 2];
+
+    bb0: {
+        _1 = [const "Working directory: ", const "\n"];
+        _0 = &_1;
+        return;
+    }
+}
+
+fn main::{closure#0}(_1: {closure@src/main.rs:22:22: 22:24}) -> () {
+    debug stream => (_1.0: std::net::TcpStream);
+    let mut _0: ();
+    let _2: ();
+    let mut _3: std::net::TcpStream;
+
+    bb0: {
+        _3 = move (_1.0: std::net::TcpStream);
+        _2 = handle_connection(move _3) -> [return: bb1, unwind continue];
+    }
+
+    bb1: {
+        return;
+    }
+}
+
+fn handle_connection(_1: TcpStream) -> () {
+    debug stream => _1;
+    let mut _0: ();
+    let _2: std::io::BufReader<&std::net::TcpStream>;
+    let mut _3: &std::net::TcpStream;
+    let mut _5: std::result::Result<std::string::String, std::io::Error>;
+    let mut _6: std::option::Option<std::result::Result<std::string::String, std::io::Error>>;
+    let mut _7: &mut std::io::Lines<std::io::BufReader<&std::net::TcpStream>>;
+    let mut _8: std::io::Lines<std::io::BufReader<&std::net::TcpStream>>;
+    let mut _11: (&str, &str);
+    let _12: &str;
+    let mut _13: &std::string::String;
+    let mut _14: bool;
+    let mut _15: bool;
+    let _16: ();
+    let mut _17: std::time::Duration;
+    let mut _19: std::result::Result<std::string::String, std::io::Error>;
+    let mut _21: &std::string::String;
+    let mut _24: std::fmt::Arguments<'_>;
+    let _25: &[&str; 3];
+    let _26: &[core::fmt::rt::Argument<'_>; 3];
+    let _27: [core::fmt::rt::Argument<'_>; 3];
+    let mut _28: core::fmt::rt::Argument<'_>;
+    let _29: &&str;
+    let mut _30: core::fmt::rt::Argument<'_>;
+    let _31: &usize;
+    let mut _32: core::fmt::rt::Argument<'_>;
+    let _33: &std::string::String;
+    let _34: ();
+    let mut _35: std::result::Result<(), std::io::Error>;
+    let mut _36: &mut std::net::TcpStream;
+    let _37: &[u8];
+    let mut _38: &std::string::String;
+    scope 1 {
+        debug buf_reader => _2;
+        let _4: std::string::String;
+        scope 2 {
+            debug request_line => _4;
+            let _9: &str;
+            let _10: &str;
+            scope 3 {
+                debug status_line => _9;
+                debug filename => _10;
+                let _18: std::string::String;
+                scope 4 {
+                    debug contents => _18;
+                    let _20: usize;
+                    scope 5 {
+                        debug length => _20;
+                        let _22: std::string::String;
+                        let _23: std::string::String;
+                        scope 6 {
+                            debug response => _22;
+                        }
+                        scope 7 {
+                            debug res => _23;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    bb0: {
+        _3 = &_1;
+        _2 = BufReader::<&TcpStream>::new(move _3) -> [return: bb1, unwind: bb37];
+    }
+
+    bb1: {
+        _8 = <BufReader<&TcpStream> as std::io::BufRead>::lines(move _2) -> [return: bb2, unwind: bb37];
+    }
+
+    bb2: {
+        _7 = &mut _8;
+        _6 = <std::io::Lines<BufReader<&TcpStream>> as Iterator>::next(move _7) -> [return: bb3, unwind: bb36];
+    }
+
+    bb3: {
+        _5 = Option::<Result<String, std::io::Error>>::unwrap(move _6) -> [return: bb4, unwind: bb36];
+    }
+
+    bb4: {
+        _4 = Result::<String, std::io::Error>::unwrap(move _5) -> [return: bb5, unwind: bb36];
+    }
+
+    bb5: {
+        drop(_8) -> [return: bb6, unwind: bb35];
+    }
+
+    bb6: {
+        _13 = &_4;
+        _12 = <String as Index<RangeFull>>::index(move _13, const RangeFull) -> [return: bb7, unwind: bb35];
+    }
+
+    bb7: {
+        _15 = <str as PartialEq>::eq(copy _12, const "GET / HTTP/1.1") -> [return: bb13, unwind: bb35];
+    }
+
+    bb8: {
+        _11 = (const "HTTP/1.1 404 NOT FOUND", const "404.html");
+        goto -> bb16;
+    }
+
+    bb9: {
+        _11 = (const "HTTP/1.1 200 OK", const "hello.html");
+        goto -> bb16;
+    }
+
+    bb10: {
+        _14 = <str as PartialEq>::eq(copy _12, const "GET /sleep HTTP/1.1") -> [return: bb12, unwind: bb35];
+    }
+
+    bb11: {
+        _17 = Duration::from_secs(const 5_u64) -> [return: bb14, unwind: bb35];
+    }
+
+    bb12: {
+        switchInt(move _14) -> [0: bb8, otherwise: bb11];
+    }
+
+    bb13: {
+        switchInt(move _15) -> [0: bb10, otherwise: bb9];
+    }
+
+    bb14: {
+        _16 = sleep(move _17) -> [return: bb15, unwind: bb35];
+    }
+
+    bb15: {
+        _11 = (const "HTTP/1.1 200 OK", const "hello.html");
+        goto -> bb16;
+    }
+
+    bb16: {
+        _9 = copy (_11.0: &str);
+        _10 = copy (_11.1: &str);
+        _19 = std::fs::read_to_string::<&str>(copy _10) -> [return: bb17, unwind: bb35];
+    }
+
+    bb17: {
+        _18 = Result::<String, std::io::Error>::unwrap(move _19) -> [return: bb18, unwind: bb35];
+    }
+
+    bb18: {
+        _21 = &_18;
+        _20 = String::len(move _21) -> [return: bb19, unwind: bb34];
+    }
+
+    bb19: {
+        _25 = const handle_connection::promoted[0];
+        _29 = &_9;
+        _28 = core::fmt::rt::Argument::<'_>::new_display::<&str>(copy _29) -> [return: bb20, unwind: bb34];
+    }
+
+    bb20: {
+        _31 = &_20;
+        _30 = core::fmt::rt::Argument::<'_>::new_display::<usize>(copy _31) -> [return: bb21, unwind: bb34];
+    }
+
+    bb21: {
+        _33 = &_18;
+        _32 = core::fmt::rt::Argument::<'_>::new_display::<String>(copy _33) -> [return: bb22, unwind: bb34];
+    }
+
+    bb22: {
+        _27 = [move _28, move _30, move _32];
+        _26 = &_27;
+        _24 = Arguments::<'_>::new_v1::<3, 3>(copy _25, copy _26) -> [return: bb23, unwind: bb34];
+    }
+
+    bb23: {
+        _23 = format(move _24) -> [return: bb24, unwind: bb34];
+    }
+
+    bb24: {
+        _22 = must_use::<String>(move _23) -> [return: bb25, unwind: bb34];
+    }
+
+    bb25: {
+        _36 = &mut _1;
+        _38 = &_22;
+        _37 = String::as_bytes(move _38) -> [return: bb26, unwind: bb33];
+    }
+
+    bb26: {
+        _35 = <TcpStream as std::io::Write>::write_all(move _36, copy _37) -> [return: bb27, unwind: bb33];
+    }
+
+    bb27: {
+        _34 = Result::<(), std::io::Error>::unwrap(move _35) -> [return: bb28, unwind: bb33];
+    }
+
+    bb28: {
+        drop(_22) -> [return: bb29, unwind: bb34];
+    }
+
+    bb29: {
+        drop(_18) -> [return: bb30, unwind: bb35];
+    }
+
+    bb30: {
+        drop(_4) -> [return: bb31, unwind: bb37];
+    }
+
+    bb31: {
+        drop(_1) -> [return: bb32, unwind continue];
+    }
+
+    bb32: {
+        return;
+    }
+
+    bb33 (cleanup): {
+        drop(_22) -> [return: bb34, unwind terminate(cleanup)];
+    }
+
+    bb34 (cleanup): {
+        drop(_18) -> [return: bb35, unwind terminate(cleanup)];
+    }
+
+    bb35 (cleanup): {
+        drop(_4) -> [return: bb37, unwind terminate(cleanup)];
+    }
+
+    bb36 (cleanup): {
+        drop(_8) -> [return: bb37, unwind terminate(cleanup)];
+    }
+
+    bb37 (cleanup): {
+        drop(_1) -> [return: bb38, unwind terminate(cleanup)];
+    }
+
+    bb38 (cleanup): {
+        resume;
+    }
+}
+
+const handle_connection::promoted[0]: &[&str; 3] = {
+    let mut _0: &[&str; 3];
+    let mut _1: [&str; 3];
+
+    bb0: {
+        _1 = [const "", const "\r\nContent-Length: ", const "\r\n\r\n"];
+        _0 = &_1;
+        return;
+    }
+}
